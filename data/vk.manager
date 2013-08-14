@@ -1,0 +1,7 @@
+[ConnectionManager]
+Name = idle
+BusName = org.freedesktop.Telepathy.ConnectionManager.vk
+ObjectPath = /org/freedesktop/Telepathy/ConnectionManager/vk
+
+[Protocol vk]
+
