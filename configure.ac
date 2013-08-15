@@ -97,32 +97,6 @@ AC_DEFINE(TP_VERSION_MIN_REQUIRED, TP_VERSION_0_18, [Ignore post 0.18 deprecatio
 AC_DEFINE(TP_VERSION_MAX_ALLOWED, TP_VERSION_0_20, [Prevent post 0.20 APIs])
 PKG_CHECK_MODULES([TELEPATHY], [telepathy-glib >= 0.20])
 
-dnl Check for code generation tools
-XSLTPROC=
-AC_CHECK_PROGS([XSLTPROC], [xsltproc])
-if test -z "$XSLTPROC"; then
-  AC_MSG_ERROR([xsltproc (from the libxslt source package) is required])
-fi
-
-AM_PATH_PYTHON([2.3])
-
-dnl check for a version of python that can run the twisted tests
-AC_MSG_CHECKING([for Python with Twisted and IRC protocol support])
-for TEST_PYTHON in python2.5 python2.6 python; do
-  if $TEST_PYTHON -c "from sys import version_info; import dbus, dbus.mainloop.glib; raise SystemExit(version_info < (2, 5, 0, 'final', 0))" >/dev/null 2>&1; then
-    if $TEST_PYTHON -c "import twisted.words.protocols.irc, twisted.internet.reactor" >/dev/null 2>&1; then
-      AM_CONDITIONAL([WANT_TWISTED_TESTS], true)
-      break
-    else
-      TEST_PYTHON=no
-    fi
-  fi
-done
-AC_MSG_RESULT([$TEST_PYTHON])
-AC_SUBST(TEST_PYTHON)
-AM_CONDITIONAL([WANT_TWISTED_TESTS], test xno != x$TEST_PYTHON)
-
-
 AS_AC_EXPAND(DATADIR, $datadir)
 DBUS_SERVICES_DIR="$DATADIR/dbus-1/services"
 AC_SUBST(DBUS_SERVICES_DIR)
