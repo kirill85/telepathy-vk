@@ -35,7 +35,7 @@ AM_INIT_AUTOMAKE([1.9 -Wno-portability])
 
 AM_PROG_LIBTOOL
 AM_CONFIG_HEADER(config.h)
-AM_PROG_MKDIR_P
+AC_PROG_MKDIR_P
 
 dnl check for tools
 AC_PROG_CC
@@ -132,11 +132,5 @@ AC_CHECK_FUNCS(strnlen)
 
 AC_OUTPUT( Makefile \
 					 data/Makefile \
-					 extensions/Makefile \
            m4/Makefile \
-           src/Makefile \
-					 tests/Makefile \
-						 tests/twisted/Makefile \
-							 tests/twisted/tools/Makefile \
-					 tools/Makefile \
 )
